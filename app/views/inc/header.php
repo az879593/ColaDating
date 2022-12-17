@@ -30,14 +30,14 @@
                         <div class="nav-link text-white"><?php echo $_SESSION['user_nickname']?>,Welcome</div>
                     </li>
                     <li class="nav-item ">
-                        <a class="btn nav-link text-white" href="<?php echo URLROOT; ?>/users/logout">Logout</a>
+                        <a class="btn nav-link text-white text-start" href="<?php echo URLROOT; ?>/users/logout">Logout</a>
                     </li>
                     <?php else : ?>
                     <li class="nav-item">
-                        <a class="btn nav-link text-white" aria-current="page" href="<?php echo URLROOT; ?>/users/register">Register</a>
+                        <a class="btn nav-link text-white text-start" aria-current="page" href="<?php echo URLROOT; ?>/users/register">Register</a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn nav-link text-white" href="<?php echo URLROOT; ?>/users/login">Login</a>
+                        <a class="btn nav-link text-white text-start" href="<?php echo URLROOT; ?>/users/login">Login</a>
                     </li>
                     <?php endif; ?>
                 </ul>
