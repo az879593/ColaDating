@@ -19,9 +19,13 @@
 
 ### 後端
 
-採用MVC架構，使用PHP開發，Model使用PDO與MySQL資料庫進行串接並傳回Controller，提供View所需資料
+- 採用MVC架構
+- 使用PHP開發
+- 使用PDO與MySQL資料庫進行串接
 
 
 ### 前端 
 
-使用 HTML、CSS(Bootstrap 5)、Javascript(JQuery)
+- HTML
+- CSS (Bootstrap 5)
+- Javascript (JQuery)
