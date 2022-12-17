@@ -8,7 +8,7 @@
         public function register($data){
             $this->db->query('INSERT INTO tbl_users (username, password, nickname, phonenumber, email) VALUES 
             (:username, :password, :nickname, :phonenumber, :email)');
-
+            
             // Bind value
             $this->db->bind(':username', $data['username']);
             $this->db->bind(':password', $data['password']);
@@ -23,6 +23,21 @@
                 return false;
             }
             
+        }
+
+        // User Login
+        public function login($username, $password){
+            $this->db->query('SELECT * FROM tbl_users WHERE username = :username');
+            $this->db->bind(':username', $username);
+
+            $row = $this->db->single();
+
+            $hashed_password = $row->password;
+            if(password_verify($password, $hashed_password)){
+                return $row;
+            } else {
+                return false;
+            }            
         }
 
         // Find user by username

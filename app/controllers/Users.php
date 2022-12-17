@@ -156,6 +156,31 @@
                     $data['password_err'] = 'Please enter password';
                 }
 
+                // Check for username
+                if($this->userModel->findUserByUsername($data['username'])){
+                    // User found
+
+                } else {
+                    // User not found
+                    $data['username_err'] = 'No user found';
+                }
+
+                if(empty($data['username_err']) && empty($data['password_err'])){
+                    // Validated
+                    // Check and set logged in user
+                    $loggedInUser = $this->userModel->login($data['username'], $data['password']);
+                    
+                    if($loggedInUser){
+                        // Create seesion
+                        $this->createUserSession($loggedInUser);
+                    }else{
+                        $data['password_err'] = 'Password incorrect';
+                        $this->view('users/login', $data);
+                    }
+                } else {
+                    // Load view with error
+                    $this->view('users/login', $data);
+                }
             } else {
                 // Init data
                 $data = [
@@ -164,9 +189,26 @@
                     'username_err' => '',
                     'password_err' => ''
                 ];
+                // Load view
+                $this->view('users/login', $data);
             }
             
-            // Load view
-            $this->view('users/login');            
+                        
+        }
+
+        public function createUserSession($user){
+            $_SESSION['user_id'] = $user->id;
+            $_SESSION['user_username'] = $user->username;
+            $_SESSION['user_nickname'] = $user->nickname;
+            // $_SESSION['user_id'] = $user->id;
+            redirect('pages/index');
+        }
+
+        public function logout(){
+            unset($_SESSION['user_id']);
+            unset($_SESSION['user_username']);
+            unset($_SESSION['user_nickname']);
+            session_destroy();
+            redirect('users/login');
         }
     }

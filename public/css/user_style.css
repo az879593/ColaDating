@@ -1,22 +1,28 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
 }
 
 body {
     height: 100vh;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    background: linear-gradient(135deg, #EC7755, #9b59b6);
+    flex-direction: column;
+    align-items: stretch;
+    /* background: linear-gradient(135deg, #EC7755, #9b59b6); */
+    background-color: #f7f7f7;
 }
 
-.container {
+.input {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container2 {
     max-width: 700px;
     width: 80%;
     background-color: #fff;
@@ -25,13 +31,13 @@ body {
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
 }
 
-.container .title {
+.container2 .title {
     font-size: 25px;
     font-weight: 500;
     position: relative;
 }
 
-.container .title::before {
+.container2 .title::before {
     content: "";
     position: absolute;
     left: 0;
@@ -168,3 +174,33 @@ form .button input:hover {
         flex-direction: column;
     }
 }
+
+#card{
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+#cardbody{
+    text-align: center;
+    width : 80%;
+}
+
+
+#cardrow{
+    height: 100%;
+}
+
+#message{
+    color: red;
+    font-size:medium;
+}
+
+.color-lump{
+    
+    background: -webkit-linear-gradient(left,#FD267D,#FF7854);
+    background: -o-linear-gradient(right,#FD267D,#FF7854);
+    background: -moz-linear-gradient(right,#FD267D,#FF7854);
+    background: linear-gradient(to right,#FD267D,#FF7854);
+}
+

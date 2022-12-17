@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 
 <html lang="en">
 
@@ -6,18 +6,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration</title>
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous"> -->
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/bootstrap.min.css">
+    <title>Cola Dating</title> -->
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous"> -->
+<!-- <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/fileinput.min.css">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/register_style.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/user_style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script">
 </head>
 
-<body>
 
-    <div class="container">
-        <div class="title">Registration</div>
+<body>
+    <div class="color-lump">
+        <div class="container">
+            <font color="white" size="7" face="Dancing Script">COLA</font>
+        </div>
+    </div> -->
+<?php require APPROOT . '/views/inc/header.php'; ?>
+<div class="input">
+    <div class="container2">
+        
         <div class="content">
+            <div class="title">Registration</div>
             <form action="<?php echo URLROOT; ?>/users/register" method="post">
                 <div class="user-details">
                     <div class="input-box">
@@ -50,6 +59,10 @@
                         <input type="password" name="passwordConfirmation" class="<?php echo (!empty($data['passwordConfirmation_err']) ? 'is-invalid' : ''); ?>" value="<?php echo $data['passwordConfirmation']; ?>" placeholder="Confirm your password">
                         <span class="invalid-feedback"><?php echo $data['passwordConfirmation_err'] ?></span>
                     </div>
+                    <div class="mb-3 col-5">
+                        <label for="formFile" class="form-label">Select Profile Picture</label>
+                        <input class="form-control" type="file" id="formFile">
+                    </div>
                 </div>
                 <!-- <div class="gender-details is-invalid <?php echo (!empty($data['gender_err']) ? 'is-invalid' : ''); ?>">
                     <input type="radio" name="gender" id="dot-1" value = "Male">
@@ -75,26 +88,25 @@
                     </div>
                 </div> -->
 
-                <div class="mb-3 col-5">
-                    <label for="formFile" class="form-label">Select Profile Picture</label>
-                    <input class="form-control" type="file" id="formFile">
-                </div>
+
                 <div class="button">
                     <input type="submit" value="Register">
                 </div>
             </form>
         </div>
-        
+
         <div>
             <center>Already have an account?</center>
             <a href="<?php echo URLROOT; ?>/users/login" class="link-primary">
                 <center>Sign In</center>
             </a>
         </div>
+
     </div>
+</div>
 
 
-    <!--     <form action="<?php echo URLROOT; ?>/users/register" method="POST" class = "vh-100">
+<!--     <form action="<?php echo URLROOT; ?>/users/register" method="POST" class = "vh-100">
         <div class="container h-100">
             <div class="row justify-content-center align-items-center h-100">
                 <div class="col-md-8 col-lg-6 col-xl-5 col-xxl-4">
@@ -147,13 +159,4 @@
             </div>
         </div>
     </form> -->
-</body>
-
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-</body>
-
-</html>
+<?php require APPROOT . '/views/inc/footer.php'; ?>
