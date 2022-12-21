@@ -25,9 +25,9 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <?php if(isset($_SESSION['user_id'])) : ?>
+                    <?php if (isset($_SESSION['user_id'])) : ?>
                     <li class="nav-item ">
-                        <div class="nav-link text-white"><?php echo $_SESSION['user_nickname']?>,Welcome</div>
+                        <div class="nav-link text-white"><?php echo $_SESSION['user_nickname'] ?>,Welcome</div>
                     </li>
                     <li class="nav-item ">
                         <a class="btn nav-link text-white text-start" href="<?php echo URLROOT; ?>/users/logout">Logout</a>
@@ -44,6 +44,8 @@
             </div>
         </div>
     </nav>
+
+    
 
     <!-- <div class="color-lump">
         <div class="container">

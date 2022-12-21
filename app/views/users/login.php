@@ -1,11 +1,3 @@
-<?php
-
-// session_start();
-// if (isset($_SESSION['username'])) {
-//     header("Location: chat.php");
-// }
-
-?>
 <?php require APPROOT . '/views/inc/header.php'; ?>
 <div class="input">
     <div class="container">

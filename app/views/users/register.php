@@ -24,7 +24,7 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 <div class="input">
     <div class="container2">
-        
+
         <div class="content">
             <div class="title">Registration</div>
             <form action="<?php echo URLROOT; ?>/users/register" method="post">

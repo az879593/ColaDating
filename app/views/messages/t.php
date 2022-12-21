@@ -15,35 +15,7 @@
 <body>
     <div class="container1">
         <div class="side">
-            <!-- <nav class="navbar navbar-expand-lg color-lump">
-                <div class="container">
-                    <a class="navbar-brand" href="#">
-                        <font color="white" size="7" face="Dancing Script">COLA</font>
-                    </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav ms-auto">
-                            <?php if (isset($_SESSION['user_id'])) : ?>
-                                <li class="nav-item ">
-                                    <div class="nav-link text-white"><?php echo $_SESSION['user_nickname'] ?>,Welcome</div>
-                                </li>
-                                <li class="nav-item ">
-                                    <a class="btn nav-link text-white text-start" href="<?php echo URLROOT; ?>/users/logout">Logout</a>
-                                </li>
-                            <?php else : ?>
-                                <li class="nav-item">
-                                    <a class="btn nav-link text-white text-start" aria-current="page" href="<?php echo URLROOT; ?>/users/register">Register</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="btn nav-link text-white text-start" href="<?php echo URLROOT; ?>/users/login">Login</a>
-                                </li>
-                            <?php endif; ?>
-                        </ul>
-                    </div>
-                </div>
-            </nav> -->
+
             <ul class="nav color-lump d-flex align-items-center justify-content-between">
                 <li class="nav-item">
                     <div class="message">
@@ -67,9 +39,9 @@
             </ul>
 
             <div class="chatlist">
-
+                <!-- Echo 所有聊天對象 -->
                 <?php foreach ($data['userlist'] as $user) : ?>
-                    <a class="text-black text-decoration-none" href="messages/t/<?php echo $user->id; ?>">
+                    <a class = "text-black text-decoration-none" href="<?php echo $user->id; ?>">
                         <div class="message">
                             <div class="avatar">
                                 <img src="<?php echo URLROOT; ?>/img/alien.jpg" alt="This is the photo">
@@ -87,24 +59,27 @@
         </div>
 
         <div class="chatroom">
+
+            <!-- 聊天室上方Nav 顯示目前聊天對象 -->
             <ul class="nav color-lump-reverse d-flex align-items-center justify-content-between">
                 <li class="nav-item ms-4">
-                    <!-- <div class="message">
+                    <div class="message">
                         <div class="avatar">
                             <img src="<?php echo URLROOT; ?>/img/alien.jpg" alt="This is the photo">
                         </div>
                         <div class="friend">
-                            <div class="user text-white ms-3 fs-4"><?php echo $_SESSION['user_nickname'] ?></div>
+                            <div class="user text-white ms-3 fs-4"><?php echo $data['chatuser']->nickname ?></div>
                         </div>
-                    </div> -->
+                    </div>
                 </li>
             </ul>
 
 
 
             <div class="chatspace">
+                <!-- 顯示目前聊天對象所有聊天訊息 -->
                 <?php if (empty($data['messages'])) : ?>
-                    不會找人聊天喔廢物
+                    沒講過話喔可悲
                 <?php else : ?>
                     <?php foreach ($data['messages'] as $message) : ?>
                         <?php if ($message->to_user == $_SESSION['user_id']) : ?>
@@ -123,15 +98,26 @@
                     <?php endforeach; ?>
                 <?php endif ?>
 
+                <!-- <div class="d-flex justify-content-end">
+                    <div class="chat-bubble-right">
+                        噁男，約三小?
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-start">
+                    <div class="chat-bubble-left">
+                        約嗎?
+                    </div>
+                </div> -->
             </div>
 
-
-            <!-- <div class="message-input container-fluid d-flex">
+            <!-- 訊息傳送 -->
+            <div class="message-input container-fluid d-flex">
                 <div class="input-group">
                     <input class="form-control rounded-pill" type="text" placeholder="傳送訊息" aria-label=".form-control-lg example">
                     <button class="btn btn-link" type="button" id="button-addon2">傳送</button>
                 </div>
-            </div> -->
+            </div>
         </div>
 
         <?php require APPROOT . '/views/inc/footer.php'; ?>

@@ -5,13 +5,19 @@
     box-sizing: border-box;
 }
 
-body {
+html, body {
+    margin: 0;
+    padding: 0;
     height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: stretch;
     /* background: linear-gradient(135deg, #EC7755, #9b59b6); */
     background-color: #f7f7f7;
+}
+
+a{
+    color: none;
 }
 
 .input {
@@ -195,6 +201,8 @@ form .button input:hover {
     color: red;
     font-size:medium;
 }
+
+
 
 .color-lump{
     background: -webkit-linear-gradient(left,#FD267D,#FF7854);

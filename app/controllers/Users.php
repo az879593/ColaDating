@@ -1,6 +1,9 @@
 <?php
     class Users extends Controller{
         public function __construct() {
+            if(isLoggedIn()){
+                redirect('messages');
+            }
             $this->userModel = $this->model('User');
         }
 
@@ -131,6 +134,8 @@
         }
 
         public function login() {
+
+            
             // Check for POST
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 // Process form
@@ -201,7 +206,7 @@
             $_SESSION['user_username'] = $user->username;
             $_SESSION['user_nickname'] = $user->nickname;
             // $_SESSION['user_id'] = $user->id;
-            redirect('pages/index');
+            redirect('messages');
         }
 
         public function logout(){
