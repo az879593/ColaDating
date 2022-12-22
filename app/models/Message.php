@@ -34,7 +34,8 @@
         public function getMessagesByID($user1, $user2){
             $this->db->query('SELECT * FROM tbl_message 
             WHERE (from_user = :user1 AND to_user = :user2)
-            OR (from_user = :user2 AND to_user = :user1)');
+            OR (from_user = :user2 AND to_user = :user1)
+            ORDER BY msg_time DESC');
 
             $this->db->bind(':user1', $user1);
             $this->db->bind(':user2', $user2);
@@ -44,7 +45,28 @@
         }
 
         public function getMatchList(){
-            
+            $this->db->query('SELECT * FROM tbl_users');
+
+            $results = $this->db->resultSet();
+
+            return $results;
+        }
+
+        public function sendMessage($data){
+            $this->db->query('INSERT INTO tbl_message (from_user, to_user, message) VALUES 
+            (:from_user, :to_user, :message)');
+
+            // Bind value
+            $this->db->bind(':from_user', $data['from_id']);
+            $this->db->bind(':to_user', $data['to_id']);
+            $this->db->bind(':message', $data['text']);
+
+            // Execute
+            if($this->db->execute()){
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 

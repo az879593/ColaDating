@@ -211,6 +211,7 @@
 
         public function logout(){
             unset($_SESSION['user_id']);
+            unset($_SESSION['chatusernow']);
             unset($_SESSION['user_username']);
             unset($_SESSION['user_nickname']);
             session_destroy();

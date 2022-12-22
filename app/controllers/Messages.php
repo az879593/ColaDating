@@ -10,63 +10,60 @@
 
 
         public function index(){
-
-            // $userlist = $this->messageModel->getUserList();
-            // // Init data
-            // $data = [
-            //     'userlist' => $userlist,
-            //     'messages' => []
-            // ];
-            // $this->view('messages/index', $data);
-            $userlist = $this->messageModel->getUserList();
-
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                $data =[
+                    'text' => $_POST['text'],
+                    'from_id' => $_POST['from_id'],
+                    'to_id' => $_POST['to_id'],
+                ];
+                $this->messageModel->sendMessage($data);
+            } else {
+                $userlist = $this->messageModel->getUserList();
 
                 // Init data
                 $data = [
                     'userlist' => $userlist,
                     'messages' => []
                 ];
-            $this->view('messages/index', $data);
-            // Check for POST
-            // if($_SERVER['REQUEST_METHOD'] != 'POST'){
+                $this->view('messages/index', $data);
+            }
 
-            //     // Process form
-            //     $messages = $this->messageModel->getMessages();
-            //     $data = [
-            //         'userlist' => $userlist,
-            //         'messages' => $messages
-            //     ];
-
-            //     $this->view('messages/index', $data);
-            // } else {
-                
-
-            //     // Sanitize POST data
-            //     $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
-            //     // Init data
-            //     $data = [
-            //         'userlist' => $userlist,
-            //         'messages' => []
-            //     ];
-            //     $this->view('messages/index', $data);
-            // }
-        }
-
-        public function t($chatUserID){
-            $userlist = $this->messageModel->getUserList();
-            $chatuser = $this->messageModel->getUserByID($chatUserID);
-            // Init data
-            $messages = $this->messageModel->getMessagesByID($_SESSION['user_id'], $chatUserID);
-            $data = [
-                'userlist' => $userlist,
-                'messages' => $messages,
-                'chatuser' => $chatuser
-            ];
-
-            $this->view('messages/t', $data);
             
         }
+
+        public function chatlist(){
+            $userlist = $this->messageModel->getUserList();
+            $data = [
+                'userlist' => $userlist,
+            ];
+            return $this->view('messages/chatlist', $data);
+        }
+
+        public function chatusernow($chatUserID){
+            
+            $chatusernow = $this->messageModel->getUserByID($chatUserID);
+            $_SESSION['chatusernow'] = $chatUserID;
+            $data = [
+                'chatusernow' => $chatusernow
+            ];
+            return $this->view('messages/chatusernow', $data);
+        }
+
+        public function history($chatUserID){
+            $messages = $this->messageModel->getMessagesByID($_SESSION['user_id'], $chatUserID);
+            $data = [
+                'messages' => $messages
+            ];
+            return $this->view('messages/history', $data);
+        }
+
+        public function typearea($chatUserID){
+            $chatusernow = $this->messageModel->getUserByID($chatUserID);
+            $data = [
+                'chatusernow' => $chatusernow
+            ];
+            return $this->view('messages/typearea', $data);
+        }
+        
     }
 

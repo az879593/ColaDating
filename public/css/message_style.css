@@ -125,8 +125,10 @@ html, body {
 	display: flex;
 	overflow-y: scroll;
 	overflow-x: hidden;
-	flex-direction: column;
+	flex-direction: column-reverse;
 }
+
+
 
 .chat-bubble-left {
 	padding: 10px 14px;
