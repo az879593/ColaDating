@@ -6,11 +6,17 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     var chatUserNow;
+    $(".chatuserlink").on('click', function(e) {
+        e.preventDefault();
+    });
+
+    window.addEventListener("popstate", function(e) {
+        location.reload();
+    });
 
     function chatroomInit(chatuserid) {
-        console.log(chatUserNow);
+        history.pushState('', 'Title of the page', '<?php echo URLROOT; ?>/messages/' + chatuserid);
         chatUserNow = chatuserid;
-        console.log(chatUserNow);
         url = '<?php echo URLROOT; ?>/Messages/chatusernow/' + chatuserid;
         $.ajax({
             type: 'POST',
@@ -56,7 +62,6 @@
             }
         });
         chatUserNow = chatuserid;
-        // alert(<?php echo $_SESSION['chatusernow'] ?>);
     }
 
     function sendMessage(fromid, toid) {
@@ -85,7 +90,7 @@
         }
     }
 
-    function refreshChtHistory() {
+    function refreshChatHistory() {
         var url = '<?php echo URLROOT; ?>/Messages/history/' + chatUserNow;
         // console.log(url);
         if (chatUserNow) {
@@ -106,9 +111,8 @@
         }
 
     }
-    // setInterval(chatroomInit(<?php echo $_SESSION['chatusernow'] ?>), 100);
     // setInterval(chatroomInit, 500, chatUserNow);
-    setInterval(refreshChtHistory, 1000);
+    setInterval(refreshChatHistory, 2000);
 </script>
 
 </html>

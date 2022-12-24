@@ -69,7 +69,7 @@
             <div class="chatlist">
 
                 <?php foreach ($data['userlist'] as $user) : ?>
-                    <a class="text-black text-decoration-none" href="#" onclick="chatroomInit(<?php echo $user->id; ?>);">
+                    <a class="text-black text-decoration-none chatuserlink" href="" onclick="chatroomInit(<?php echo $user->id; ?>);">
                         <div class="message">
                             <div class="avatar">
                                 <img src="<?php echo URLROOT; ?>/img/alien.jpg" alt="This is the photo">
@@ -88,25 +88,27 @@
 
         <div class="chatroom">
             <ul class="nav color-lump-reverse d-flex align-items-center justify-content-between chatusernow">
-                <li class="nav-item ms-4">
-                    <!-- <div class="message">
-                        <div class="avatar">
-                            <img src="<?php echo URLROOT; ?>/img/alien.jpg" alt="This is the photo">
+                <?php if (isset($data['chatusernow'])) : ?>
+                    <li class="nav-item ms-4">
+                        <div class="message">
+                            <div class="avatar">
+                                <img src="<?php echo URLROOT; ?>/img/alien.jpg" alt="This is the photo">
+                            </div>
+                            <div class="friend">
+                                <div class="user text-white ms-3 fs-4"><?php echo $data['chatusernow']->nickname ?></div>
+                            </div>
                         </div>
-                        <div class="friend">
-                            <div class="user text-white ms-3 fs-4"><?php echo $_SESSION['user_nickname'] ?></div>
-                        </div>
-                    </div> -->
-                </li>
+                    </li>
+                <?php endif ?>
             </ul>
 
             <div class="chatspace">
-                <div class="cool">
-                    <?php if (empty($data['messages'])) : ?>
-                        不會找人聊天喔廢物
-                    <?php else : ?>
-                        <?php foreach ($data['messages'] as $message) : ?>
-                            <!-- <?php if ($message->to_user == $_SESSION['user_id']) : ?>
+
+                <?php if (empty($data['messages'])) : ?>
+                    不會找人聊天喔廢物
+                <?php else : ?>
+                    <?php foreach ($data['messages'] as $message) : ?>
+                        <?php if ($message->to_user == $_SESSION['user_id']) : ?>
                             <div class="d-flex justify-content-start">
                                 <div class="chat-bubble-left">
                                     <?php echo $message->message; ?>
@@ -118,20 +120,22 @@
                                     <?php echo $message->message; ?>
                                 </div>
                             </div>
-                        <?php endif ?> -->
-                        <?php endforeach; ?>
-                    <?php endif ?>
-                </div>
+                        <?php endif ?>
+                    <?php endforeach; ?>
+                <?php endif ?>
+
             </div>
             <div class="type">
-                <!-- <div class="message-input container-fluid d-flex">
-                    <div class="input-group">
-                        <input class="form-control rounded-pill" type="text" placeholder="傳送訊息" aria-label=".form-control-lg example">
-                        <button class="btn btn-link" type="button" id="button-addon2">傳送</button>
+                <?php if (isset($data['chatusernow'])) : ?>
+                    <div class="message-input container-fluid d-flex">
+                        <div class="input-group">
+                            <input class="form-control rounded-pill" type="text" placeholder="傳送訊息" aria-label=".form-control-lg example">
+                            <button class="btn btn-link" type="button" id="button-addon2">傳送</button>
+                        </div>
                     </div>
-                </div> -->
+                <?php endif ?>
             </div>
 
         </div>
 
-        <?php require APPROOT . '/views/inc/footer.php'; ?>
+<?php require APPROOT . '/views/inc/footer.php'; ?>

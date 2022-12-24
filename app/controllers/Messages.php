@@ -9,7 +9,8 @@
         }
 
 
-        public function index(){
+        public function index(...$chatuseridnow){
+
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 $data =[
                     'text' => $_POST['text'],
@@ -17,26 +18,33 @@
                     'to_id' => $_POST['to_id'],
                 ];
                 $this->messageModel->sendMessage($data);
+            } else if(isset($chatuseridnow[0])){
+                $userlist = $this->messageModel->getMatchList();
+                $msg_history = $this->messageModel->getMessagesByID($_SESSION['user_id'],$chatuseridnow[0]);
+                $chatusernow = $this->messageModel->getUserByID($chatuseridnow[0]);
+                $data = [
+                    'chatusernow' => $chatusernow,
+                    'userlist' => $userlist,
+                    'messages' => $msg_history
+                ];
+                $this->view('messages/index', $data);
             } else {
-                $userlist = $this->messageModel->getUserList();
-
+                // $userlist = $this->messageModel->getUserList();
+                $userlist = $this->messageModel->getMatchList();
                 // Init data
                 $data = [
+                    'chatusernow' => null,
                     'userlist' => $userlist,
                     'messages' => []
                 ];
                 $this->view('messages/index', $data);
             }
-
-            
         }
 
-        public function chatlist(){
-            $userlist = $this->messageModel->getUserList();
+        public function match(){
             $data = [
-                'userlist' => $userlist,
             ];
-            return $this->view('messages/chatlist', $data);
+            $this->view('messages/match', $data);
         }
 
         public function chatusernow($chatUserID){

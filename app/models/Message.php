@@ -16,8 +16,28 @@
         }
 
         public function getUserList(){
-            $this->db->query('SELECT * FROM tbl_users');
+            $this->db->query('SELECT * FROM tbl_users WHERE id != :id');
+            $this->db->bind(':id', $_SESSION['user_id']);
+            $results = $this->db->resultSet();
 
+            return $results;
+        }
+
+        public function getMatchList(){
+            $this->db->query('SELECT u.id, u.username, u.nickname,u.phonenumber, u.email,
+            u.profile_picture, m.user1_id, m.user2_id, m.match_status
+            FROM tbl_users AS u
+            INNER JOIN tbl_match AS m
+            ON u.id = m.user1_id
+            WHERE user2_id = :id
+            UNION
+            SELECT u.id, u.username, u.nickname,u.phonenumber, u.email,
+            u.profile_picture, m.user1_id, m.user2_id, m.match_status
+            FROM tbl_users AS u
+            INNER JOIN tbl_match AS m
+            ON u.id = m.user2_id
+            WHERE user1_id = :id');
+            $this->db->bind(':id', $_SESSION['user_id']);
             $results = $this->db->resultSet();
 
             return $results;
@@ -39,14 +59,6 @@
 
             $this->db->bind(':user1', $user1);
             $this->db->bind(':user2', $user2);
-            $results = $this->db->resultSet();
-
-            return $results;
-        }
-
-        public function getMatchList(){
-            $this->db->query('SELECT * FROM tbl_users');
-
             $results = $this->db->resultSet();
 
             return $results;
