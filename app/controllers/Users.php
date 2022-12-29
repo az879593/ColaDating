@@ -11,10 +11,16 @@
             // Check for POST
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 // Process form
-
+                $filename = $_FILES["profilepic"]["name"];
+                $tempname = $_FILES["profilepic"]["tmp_name"];
+                // Folder 
+                $folder = "E:/htdocs/ColaDating/public/img/profilepic/" . $filename;
+                move_uploaded_file($tempname, $folder);
+                $filename = '/img/profilepic/' . $_FILES["profilepic"]["name"];
+                
                 // Sanitize POST data
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
+                
                 // Init data
                 $data =[
                     'username' => trim($_POST['username']),
@@ -23,14 +29,14 @@
                     'nickname' => trim($_POST['nickname']),
                     'phonenumber' => trim($_POST['phonenumber']),
                     'email' => trim($_POST['email']),
-                    // 'gender' => trim($_POST['gender']),
+                    'profilepic' => $filename,
                     'username_err' => '',
                     'password_err' => '',
                     'passwordConfirmation_err' => '',
                     'nickname_err' => '',
                     'phonenumber_err' => '',
                     'email_err' => '',
-                    'gender_err' => ''
+                    'profilepic_err' => ''
                 ];
 
                 // Validate Username
@@ -84,6 +90,10 @@
                     }
                 }
 
+                if(empty($data['profilepic'])){
+                    $data['profilepic_err'] = 'Please upload profilepic';
+                }
+
                 // Validate Gender
                 // if(empty($data['gender'])){
                 //     $data['gender_err'] = 'Please select gender';
@@ -91,7 +101,7 @@
 
                 if(empty($data['username_err']) && empty($data['password_err']) && empty($data['passwordConfirmation_err']) && 
                 empty($data['nickname_err']) && empty($data['phonenumber_err']) && 
-                empty($data['email_err']) && empty($data['gender_err'])){
+                empty($data['email_err']) && empty($data['profilepic_err'])){
                     // Validated
                     
                     // Hash Password
@@ -117,14 +127,14 @@
                     'nickname' => '',
                     'phonenumber' => '',
                     'email' => '',
-                    'gender' => '',
+                    'profilepic' => '',
                     'username_err' => '',
                     'password_err' => '',
                     'passwordConfirmation_err' => '',
                     'nickname_err' => '',
                     'phonenumber_err' => '',
                     'email_err' => '',
-                    'gender_err' => ''
+                    'profilepic_err' => ''
                 ];
 
                 // Load view
@@ -205,6 +215,7 @@
             $_SESSION['user_id'] = $user->id;
             $_SESSION['user_username'] = $user->username;
             $_SESSION['user_nickname'] = $user->nickname;
+            $_SESSION['user_profilepic'] = $user->profile_picture;
             // $_SESSION['user_id'] = $user->id;
             redirect('messages');
         }

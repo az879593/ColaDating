@@ -27,7 +27,7 @@
 
         <div class="content">
             <div class="title">Registration</div>
-            <form action="<?php echo URLROOT; ?>/users/register" method="post">
+            <form action="<?php echo URLROOT; ?>/users/register" method="post" enctype="multipart/form-data">
                 <div class="user-details">
                     <div class="input-box">
                         <span class="details">Username</span>
@@ -61,7 +61,7 @@
                     </div>
                     <div class="mb-3 col-5">
                         <label for="formFile" class="form-label">Select Profile Picture</label>
-                        <input class="form-control" type="file" id="formFile">
+                        <input class="form-control <?php echo (!empty($data['profilepic_err']) ? 'is-invalid' : ''); ?>" value="<?php echo $data['profilepic']; ?>" placeholder="Enter your password" type="file" name = "profilepic">
                     </div>
                 </div>
                 <!-- <div class="gender-details is-invalid <?php echo (!empty($data['gender_err']) ? 'is-invalid' : ''); ?>">
@@ -90,7 +90,7 @@
 
 
                 <div class="button">
-                    <input type="submit" value="Register">
+                    <input type="submit" name = "submit" value="Register">
                 </div>
             </form>
         </div>

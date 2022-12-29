@@ -41,12 +41,6 @@
             }
         }
 
-        public function match(){
-            $data = [
-            ];
-            $this->view('messages/match', $data);
-        }
-
         public function chatusernow($chatUserID){
             
             $chatusernow = $this->messageModel->getUserByID($chatUserID);

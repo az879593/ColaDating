@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/message_style.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/message.css">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/bootstrap.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -48,7 +48,7 @@
                 <li class="nav-item">
                     <div class="message">
                         <div class="avatar">
-                            <img src="<?php echo URLROOT; ?>/img/alien.jpg" alt="This is the photo">
+                            <img src="<?php echo URLROOT; ?><?php echo $_SESSION['user_profilepic'] ?>" alt="This is the photo">
                         </div>
                         <div class="friend">
                             <div class="user text-white ms-2 fs-4"><?php echo $_SESSION['user_nickname'] ?></div>
@@ -72,7 +72,7 @@
                     <a class="text-black text-decoration-none chatuserlink" href="" onclick="chatroomInit(<?php echo $user->id; ?>);">
                         <div class="message">
                             <div class="avatar">
-                                <img src="<?php echo URLROOT; ?>/img/alien.jpg" alt="This is the photo">
+                                <img src="<?php echo URLROOT; ?><?php echo empty($user->profile_picture) ? '/img/alien.jpg' : $user->profile_picture; ?>" alt="error">
                             </div>
                             <div class="friend">
                                 <div class="user"><?php echo $user->nickname; ?></div>

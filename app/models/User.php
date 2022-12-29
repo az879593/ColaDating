@@ -8,8 +8,8 @@
 
         // Register User
         public function register($data){
-            $this->db->query('INSERT INTO tbl_users (username, password, nickname, phonenumber, email) VALUES 
-            (:username, :password, :nickname, :phonenumber, :email)');
+            $this->db->query('INSERT INTO tbl_users (username, password, nickname, phonenumber, email, profile_picture) VALUES 
+            (:username, :password, :nickname, :phonenumber, :email, :profile_picture)');
             
             // Bind value
             $this->db->bind(':username', $data['username']);
@@ -17,6 +17,7 @@
             $this->db->bind(':nickname', $data['nickname']);
             $this->db->bind(':phonenumber', $data['phonenumber']);
             $this->db->bind(':email', $data['email']);
+            $this->db->bind(':profile_picture', $data['profilepic']);
 
             // Execute
             if($this->db->execute()){
