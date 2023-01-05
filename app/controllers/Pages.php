@@ -1,7 +1,9 @@
 <?php
     class Pages extends Controller{
         public function __construct() {
-
+            if(isLoggedIn()){
+                redirect('messages');
+            }
         }
 
         public function index(){

@@ -16,7 +16,7 @@
 <body>
     <nav class="navbar navbar-expand-lg color-lump">
         <div class="container">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="<?php echo URLROOT; ?>">
                 <font color="white" size="7" face="Dancing Script">COLA</font>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

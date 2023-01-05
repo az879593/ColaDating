@@ -8,7 +8,6 @@
             $this->messageModel = $this->model('Message');
         }
 
-
         public function index(...$chatuseridnow){
 
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -16,8 +15,12 @@
                     'text' => $_POST['text'],
                     'from_id' => $_POST['from_id'],
                     'to_id' => $_POST['to_id'],
+                    'msg_id' => null
                 ];
                 $this->messageModel->sendMessage($data);
+                $data['msg_id'] = $this->messageModel->getMessagesID($_POST['from_id'], $_POST['to_id'])->msg_id;
+                $this->messageModel->updateLatestMessage($data);      
+                
             } else if(isset($chatuseridnow[0])){
                 $userlist = $this->messageModel->getMatchList();
                 $msg_history = $this->messageModel->getMessagesByID($_SESSION['user_id'],$chatuseridnow[0]);
@@ -41,30 +44,85 @@
             }
         }
 
-        public function chatusernow($chatUserID){
+        public function match(){
+            // $userlist = $this->messageModel->getUserList();
+            $userlist = $this->messageModel->getMatchList();
+            $matchusernow = $this->messageModel->getRandomUser();
+            // Init data
+            $data = [
+                'chatusernow' => null,
+                'userlist' => $userlist,
+                'matchusernow' => $matchusernow
+            ];
+            $this->view('messages/match', $data);
+        }
+
+        public function matchcard(){
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                $matchusernow = $this->messageModel->getRandomUser();
+                $data = [
+                    'matchusernow' => $matchusernow
+                ];
+                return $this->view('messages/matchcard', $data);
+            }
+        }
+
+        public function matchlist(){
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                $userlist = $this->messageModel->getMatchList();
+                $data = [
+                    'userlist' => $userlist
+                ];
+                return $this->view('messages/chatlist', $data);
+            }else{
+                redirect('messages');
+            }
+        }
+
+        public function chatusernow(...$chatUserID){
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                $chatusernow = $this->messageModel->getUserByID($chatUserID[0]);
+                $_SESSION['chatusernow'] = $chatUserID;
+                $data = [
+                    'chatusernow' => $chatusernow
+                ];
+                return $this->view('messages/chatusernow', $data);
+            }else{
+                redirect('messages');
+            }
             
-            $chatusernow = $this->messageModel->getUserByID($chatUserID);
-            $_SESSION['chatusernow'] = $chatUserID;
-            $data = [
-                'chatusernow' => $chatusernow
-            ];
-            return $this->view('messages/chatusernow', $data);
         }
 
-        public function history($chatUserID){
-            $messages = $this->messageModel->getMessagesByID($_SESSION['user_id'], $chatUserID);
-            $data = [
-                'messages' => $messages
-            ];
-            return $this->view('messages/history', $data);
+        public function chatroomnav(){
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                return $this->view('messages/chatroomnav');
+            }else{
+                redirect('messages');
+            }
         }
 
-        public function typearea($chatUserID){
-            $chatusernow = $this->messageModel->getUserByID($chatUserID);
-            $data = [
-                'chatusernow' => $chatusernow
-            ];
-            return $this->view('messages/typearea', $data);
+        public function history(...$chatUserID){
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                $messages = $this->messageModel->getMessagesByID($_SESSION['user_id'], $chatUserID[0]);
+                $data = [
+                    'messages' => $messages
+                ];
+                return $this->view('messages/history', $data);
+            }else{
+                redirect('messages');
+            }
+        }
+
+        public function typearea(...$chatUserID){
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                $chatusernow = $this->messageModel->getUserByID($chatUserID[0]);
+                $data = [
+                    'chatusernow' => $chatusernow
+                ];
+                return $this->view('messages/typearea', $data);
+            }else{
+                redirect('messages');
+            }
         }
         
     }

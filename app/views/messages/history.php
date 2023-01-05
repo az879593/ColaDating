@@ -1,5 +1,4 @@
 <?php if (empty($data['messages'])) : ?>
-    沒講過話喔可悲
 <?php else : ?>
     <?php foreach ($data['messages'] as $message) : ?>
         <?php if ($message->to_user == $_SESSION['user_id']) : ?>

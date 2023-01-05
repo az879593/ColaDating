@@ -7,7 +7,8 @@ a {
 	text-decoration: none;
 }
 
-html, body {
+html,
+body {
 	background-color: #F5F7FA;
 	font-family: 'Roboto', sans-serif;
 	margin: 0;
@@ -18,8 +19,8 @@ html, body {
 	overflow-x: hidden;
 }
 
-.nav{
-    min-height: 98px;
+.nav {
+	min-height: 98px;
 }
 
 .container1 {
@@ -117,8 +118,7 @@ html, body {
 	flex-direction: column;
 }
 
-.chatroom .chatspace {
-	
+.chatroom .chatspacecss {
 	height: 100%;
 	background-color: white;
 	border-right: 1px solid #E1E1E1;
@@ -135,7 +135,7 @@ html, body {
 	background: #eee;
 	margin: 10px 30px;
 	border-radius: 20px;
-	overflow-wrap : break-word;
+	overflow-wrap: break-word;
 	position: relative;
 	display: inline-block;
 	max-width: 500px;
@@ -148,7 +148,7 @@ html, body {
 	background: #FF7854;
 	margin: 10px 30px;
 	border-radius: 20px;
-	overflow-wrap : break-word;
+	overflow-wrap: break-word;
 	position: relative;
 	color: white;
 	display: inline-block;
@@ -157,12 +157,12 @@ html, body {
 	justify-content: flex-end;
 }
 
-.message-input{
+.message-input {
 	height: 50px;
 	margin: 10px;
 }
 
-#button-addon2{
+#button-addon2 {
 	text-decoration: none;
 }
 
@@ -176,9 +176,77 @@ html, body {
 .color-lump-reverse {
 	background: -webkit-linear-gradient(left, #FF7854, #FD267D);
 	background: -o-linear-gradient(right, #FF7854, #FD267D);
-	background: -moz-linear-gradient(right,  #FF7854, #FD267D);
+	background: -moz-linear-gradient(right, #FF7854, #FD267D);
 	background: linear-gradient(to right, #FF7854, #FD267D);
 }
 
+.color-stable {
+	background-color: #FD267D;
+}
 
+.functionicon {
+	margin-right: 10px;
+	width: 25px;
+	filter: invert(97%) sepia(0%) saturate(240%) hue-rotate(276deg) brightness(114%) contrast(100%);
+}
 
+.startchat {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 300px;
+	filter: invert(95%) sepia(4%) saturate(13%) hue-rotate(26deg) brightness(89%) contrast(92%);
+}
+
+.emptychatuser {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	justify-content: center;
+	align-items: center;
+	text-align: start;
+	color: #D3D3D3;
+}
+
+.matchspace {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+}
+
+.matchoption {
+	display: flex;
+	justify-content: space-around;
+}
+
+.dislike {
+	width: 70px;
+	filter: invert(0%) sepia(99%) saturate(7495%) hue-rotate(18deg) brightness(92%) contrast(89%);
+}
+
+.matchimg {
+	/* border: 1px solid #ddd; */
+	padding: 40px;
+	height: 450px;
+	width: 400px;
+	/* height: 10%; */
+	/* width: 100%; */
+}
+
+.like {
+	width: 70px;
+	filter: invert(33%) sepia(44%) saturate(7257%) hue-rotate(320deg) brightness(102%) contrast(103%);
+}
+
+.matchname {
+	font-weight: bold;
+	font-size: 40px;
+	margin-top: -20px;
+	margin-left: 40px;
+	margin-bottom: 15px;
+}
+
+/* .card {
+	height: 500px;
+} */

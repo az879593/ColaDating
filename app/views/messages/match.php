@@ -44,7 +44,7 @@
             <div class="chatlist">
 
                 <?php foreach ($data['userlist'] as $user) : ?>
-                    <a class="text-black text-decoration-none aprevent" href="" onclick="chatroomInit(<?php echo $user->id; ?>);">
+                    <a class="text-black text-decoration-none" href="<?php echo URLROOT; ?>/messages/<?php echo $user->id; ?>" onclick="changeChatUser(<?php echo $user->id; ?>);">
                         <div class="message">
                             <div class="avatar">
                                 <img src="<?php echo URLROOT; ?><?php echo empty($user->profile_picture) ? '/img/alien.jpg' : $user->profile_picture; ?>" alt="error">
@@ -63,63 +63,30 @@
 
         <div class="chatroom">
             <!-- chatroom上排navbar -->
+            <!-- <ul class="nav color-lump d-flex align-items-center justify-content-between chatusernow">
 
-            <ul class="nav color-lump d-flex align-items-center justify-content-between chatusernow">
-                <?php if (isset($data['chatusernow'])) : ?>
-                    <li class="nav-item ms-4">
-                        <div class="message">
-                            <div class="avatar">
-                                <img src="<?php echo URLROOT; ?><?php echo empty($data['chatusernow']->profile_picture) ? '/img/alien.jpg' : $data['chatusernow']->profile_picture; ?>" alt="This is the photo">
-                            </div>
-                            <div class="friend">
-                                <div class="user text-white ms-3 fs-4"><?php echo $data['chatusernow']->nickname ?></div>
-                            </div>
-                        </div>
-                    </li>
-                <?php endif ?>
-            </ul>
-
+            </ul> -->
 
             <!-- chatroom聊天室 -->
             <!-- <?php echo empty($data['messages']) ? "" : "chatspacecss" ?> -->
-            <div class="chatspace chatspacecss">
-
-                <?php if (empty($data['messages'])) : ?>
-                    <div class="emptychatuser">
-                        <img class="startchat" src="<?php echo URLROOT; ?>/img/icon/startchat_icon.svg" alt="">
-                        <h3>選擇聊天對象開始聊天</h1>
+            <div class="matchspace">
+                <div class="card" style="width: 25rem">
+                    <div class="matchusernow">
+                        <img src="<?php echo URLROOT; ?><?php echo $data['matchusernow']->profile_picture ?>" class="matchimg" alt="...">
+                        <p class="matchname"><?php echo $data['matchusernow']->nickname ?></p>
                     </div>
-                <?php else : ?>
-                    <?php foreach ($data['messages'] as $message) : ?>
-                        <?php if ($message->to_user == $_SESSION['user_id']) : ?>
-                            <div class="d-flex justify-content-start">
-                                <div class="chat-bubble-left">
-                                    <?php echo $message->message; ?>
-                                </div>
-                            </div>
-                        <?php else : ?>
-                            <div class="d-flex justify-content-end">
-                                <div class="chat-bubble-right">
-                                    <?php echo $message->message; ?>
-                                </div>
-                            </div>
-                        <?php endif ?>
-                    <?php endforeach; ?>
-                <?php endif ?>
-
-            </div>
-            <div class="type">
-                <?php if (isset($data['chatusernow'])) : ?>
-                    <div class="message-input container-fluid d-flex">
-                        <div class="input-group">
-                            <input class="form-control rounded-pill" type="text" placeholder="傳送訊息" id="typearea" aria-label=".form-control-lg example">
-                            <button class="btn btn-link" type="button" id="button-addon2" onclick="sendMessage(<?php echo $_SESSION['user_id'] ?>, <?php echo $data['chatusernow']->id ?>)">Send</button>
+                    <div class="card-body">
+                        <div class="d-flex matchoption">
+                            <a class="aprevent" href="" onclick="dislike();">
+                                <img class="dislike" src="<?php echo URLROOT; ?>/img/icon/dislike_icon.svg" alt="">
+                            </a>
+                            <a class="aprevent" href="" onclick="like();">
+                                <img class="like" src="<?php echo URLROOT; ?>/img/icon/like_icon.svg" alt="">
+                            </a>
                         </div>
                     </div>
-                <?php endif ?>
+                </div>
             </div>
-
         </div>
-
 
         <?php require APPROOT . '/views/inc/footer.php'; ?>
