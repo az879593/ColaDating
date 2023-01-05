@@ -45,16 +45,55 @@
         }
 
         public function match(){
-            // $userlist = $this->messageModel->getUserList();
-            $userlist = $this->messageModel->getMatchList();
-            $matchusernow = $this->messageModel->getRandomUser();
-            // Init data
-            $data = [
-                'chatusernow' => null,
-                'userlist' => $userlist,
-                'matchusernow' => $matchusernow
-            ];
-            $this->view('messages/match', $data);
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                if($this->messageModel->getMatchRowcountByID($_POST['user'], $_POST['matchuser'])){
+                    $data =[
+                        'status' => $_POST['status'],
+                        'user1' => $_POST['user'],
+                        'user2' => $_POST['matchuser']
+                    ];
+                    $this->messageModel->updateUser1MatchStatus($data);
+                }else if($this->messageModel->getMatchRowcountByID($_POST['matchuser'], $_POST['user'])){
+                    $data =[
+                        'status' => $_POST['status'],
+                        'user1' => $_POST['matchuser'],
+                        'user2' => $_POST['user']
+                    ];
+                    $this->messageModel->updateUser2MatchStatus($data);
+                }else{
+                    $data =[
+                        'status' => $_POST['status'],
+                        'user1' => $_POST['user'],
+                        'user2' => $_POST['matchuser']
+                    ];
+                    $this->messageModel->createMatch($data);
+                }
+            }else {
+                $userlist = $this->messageModel->getMatchList();
+                $matchusernow = $this->messageModel->getRandomUser();
+                
+                $data = [
+                    'chatusernow' => null,
+                    'userlist' => $userlist,
+                    'matchusernow' => $matchusernow
+                ];
+                $this->view('messages/match', $data);
+                
+            }
+        }
+
+        public function checkMatch(){
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                $row = $this->messageModel->getMatchByID($_POST['user'], $_POST['matchuser']);
+                if($row->user1_status == 1 AND $row->user2_status == 1){
+                    echo 1;
+                }else{
+                    echo 0;
+                }
+                
+            }else{
+                redirect('messages/match');
+            }
         }
 
         public function matchcard(){

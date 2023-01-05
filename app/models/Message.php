@@ -43,8 +43,8 @@ class Message
         //     ON u.id = m.user2_id
         //     WHERE user1_id = :id');
 
-        $this->db->query('SELECT u.id, u.username, u.nickname,u.phonenumber, u.email,
-        u.profile_picture, m.user1_id, m.user2_id, m.match_status, m.latest_msg_id, msg.message, msg.msg_time
+        $this->db->query('SELECT * FROM (SELECT u.id, u.nickname,
+        u.profile_picture, m.user1_id, m.user2_id, m.user1_status, m.user2_status, m.latest_msg_id, msg.message, msg.msg_time
         FROM tbl_users AS u
         INNER JOIN tbl_match AS m
         ON u.id = m.user1_id
@@ -52,15 +52,16 @@ class Message
         ON msg.msg_id = m.latest_msg_id
         WHERE user2_id = :id
         UNION
-        SELECT u.id, u.username, u.nickname,u.phonenumber, u.email,
-        u.profile_picture, m.user1_id, m.user2_id, m.match_status, m.latest_msg_id, msg.message, msg.msg_time
+        SELECT u.id, u.nickname,
+        u.profile_picture, m.user1_id, m.user2_id, m.user1_status, m.user2_status, m.latest_msg_id, msg.message, msg.msg_time
         FROM tbl_users AS u
         INNER JOIN tbl_match AS m
         ON u.id = m.user2_id
         LEFT JOIN tbl_message AS msg
         ON msg.msg_id = m.latest_msg_id
         WHERE user1_id = :id
-        ORDER BY msg_time DESC');
+        ORDER BY msg_time DESC) AS tbl
+        WHERE tbl.user1_status = 1 AND tbl.user2_status = 1');
         $this->db->bind(':id', $_SESSION['user_id']);
         $results = $this->db->resultSet();
 
@@ -102,8 +103,15 @@ class Message
     }
 
     public function getRandomUser(){
-        $this->db->query('SELECT * FROM `tbl_users`
-        ORDER BY RAND() LIMIT 1');
+        $this->db->query('SELECT * FROM
+        (SELECT * 
+        FROM tbl_users AS u
+        LEFT JOIN (SELECT * FROM tbl_match WHERE tbl_match.user1_id = :id OR tbl_match.user2_id = :id) AS m
+        ON u.id = m.user1_id OR u.id = m.user2_id) AS tbl
+        WHERE (tbl.id != :id AND tbl.user1_id = :id AND tbl.user1_status = 0) OR (tbl.id != :id AND tbl.user2_id = :id AND tbl.user2_status = 0) OR tbl.match_id IS NULL
+        ORDER BY RAND()
+        LIMIT 1');
+        $this->db->bind(':id', $_SESSION['user_id']);
         $result = $this->db->single();
         return $result;
     }
@@ -138,6 +146,74 @@ class Message
         if ($this->db->execute()) {
             return true;
         } else {
+            return false;
+        }
+    }
+
+    public function getMatchRowcountByID($user1, $user2){
+        $this->db->query('SELECT * FROM `tbl_match`
+        WHERE user1_id = :user1 AND user2_id = :user2');
+        $this->db->bind(':user1', $user1);
+        $this->db->bind(':user2', $user2);
+
+        $row = $this->db->single();
+
+        if($this->db->rowCount() > 0){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getMatchByID($user1, $user2){
+        $this->db->query('SELECT * FROM `tbl_match`
+        WHERE (user1_id = :user1 AND user2_id = :user2)
+        OR (user1_id = :user2 AND user2_id = :user1)');
+        $this->db->bind(':user1', $user1);
+        $this->db->bind(':user2', $user2);
+
+        $row = $this->db->single();
+        return $row;
+    }
+
+    public function updateUser1MatchStatus($data){
+        $this->db->query('UPDATE tbl_match SET user1_status = :user1_status
+        WHERE (user1_id = :user1 AND user2_id = :user2)');
+        $this->db->bind(':user1', $data['user1']);
+        $this->db->bind(':user2', $data['user2']);
+        $this->db->bind(':user1_status', $data['status']);
+
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function updateUser2MatchStatus($data){
+        $this->db->query('UPDATE tbl_match SET user2_status = :user2_status
+        WHERE (user1_id = :user1 AND user2_id = :user2)');
+        $this->db->bind(':user1', $data['user1']);
+        $this->db->bind(':user2', $data['user2']);
+        $this->db->bind(':user2_status', $data['status']);
+
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function createMatch($data){
+        $this->db->query('INSERT INTO tbl_match (user1_id, user2_id, user1_status) VALUES
+        (:user1, :user2, :status)');
+        $this->db->bind(':user1', $data['user1']);
+        $this->db->bind(':user2', $data['user2']);
+        $this->db->bind(':status', $data['status']);
+
+        if($this->db->execute()){
+            return true;
+        }else{
             return false;
         }
     }

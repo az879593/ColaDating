@@ -247,6 +247,10 @@ body {
 	margin-bottom: 15px;
 }
 
+.macthoption{
+	cursor: pointer;
+}
+
 /* .card {
 	height: 500px;
 } */

@@ -84,7 +84,7 @@
             <!-- <?php echo empty($data['messages']) ? "" : "chatspacecss" ?> -->
             <div class="chatspace chatspacecss">
 
-                <?php if (empty($data['messages'])) : ?>
+                <?php if (empty($data['chatusernow'])) : ?>
                     <div class="emptychatuser">
                         <img class="startchat" src="<?php echo URLROOT; ?>/img/icon/startchat_icon.svg" alt="">
                         <h3>選擇聊天對象開始聊天</h1>

@@ -117,16 +117,41 @@ function refreshChatHistory() {
 	}
 }
 
-function like(){
-
-
-	changeMatchUser();
+function like(user, matchuser){
+	var url = "http://localhost/ColaDating/Messages/match";
+	$.ajax({
+		type: "POST",
+		url: url,
+		data: {
+			user: user,
+			matchuser: matchuser,
+			status: 1,
+		},
+		success: function (data) {
+			// refreshMatchList();
+			checkMatch(user, matchuser);
+			changeMatchUser();
+		},
+		error: function (data) {},
+	});
 }
 
-function dislike(){
-
-	
-	changeMatchUser();
+function dislike(user, matchuser){
+	var url = "http://localhost/ColaDating/Messages/match";
+	$.ajax({
+		type: "POST",
+		url: url,
+		data: {
+			user: user,
+			matchuser: matchuser,
+			status: -1,
+		},
+		success: function (data) {
+			// refreshMatchList();
+			changeMatchUser();
+		},
+		error: function (data) {},
+	});
 }
 
 function changeMatchUser(){
@@ -138,10 +163,33 @@ function changeMatchUser(){
 		success: function (data) {
 			// $(".chatlist").html(data);
 			// alert('dsaaaaaaaaa');
-			$(".matchusernow").html(data);
+			if(data){
+				$(".matchspace").html(data);
+			}else{
+
+			}
 		},
 		error: function (data) {
 		},
+	});
+}
+
+function checkMatch(user, matchuser){
+	var url = "http://localhost/ColaDating/Messages/checkMatch";
+	$.ajax({
+		type: "POST",
+		url: url,
+		data: {
+			user: user,
+			matchuser: matchuser,
+		},
+		success: function (data) {
+			if(data){
+				alert('配對成功');
+				refreshMatchList();
+			}
+		},
+		error: function (data) {},
 	});
 }
 // setInterval(chatroomInit, 500, chatUserNow);
