@@ -108,7 +108,7 @@ class Message
         FROM tbl_users AS u
         LEFT JOIN (SELECT * FROM tbl_match WHERE tbl_match.user1_id = :id OR tbl_match.user2_id = :id) AS m
         ON u.id = m.user1_id OR u.id = m.user2_id) AS tbl
-        WHERE (tbl.id != :id AND tbl.user1_id = :id AND tbl.user1_status = 0) OR (tbl.id != :id AND tbl.user2_id = :id AND tbl.user2_status = 0) OR tbl.match_id IS NULL
+        WHERE (tbl.id != :id AND tbl.user1_id = :id AND tbl.user1_status = 0) OR (tbl.id != :id AND tbl.user2_id = :id AND tbl.user2_status = 0) OR (tbl.match_id IS NULL AND tbl.id != :id) 
         ORDER BY RAND()
         LIMIT 1');
         $this->db->bind(':id', $_SESSION['user_id']);

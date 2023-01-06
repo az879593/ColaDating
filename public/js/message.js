@@ -184,7 +184,7 @@ function checkMatch(user, matchuser){
 			matchuser: matchuser,
 		},
 		success: function (data) {
-			if(data){
+			if(data == 1){
 				alert('配對成功');
 				refreshMatchList();
 			}
