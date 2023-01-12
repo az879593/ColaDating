@@ -185,7 +185,11 @@ function checkMatch(user, matchuser){
 		},
 		success: function (data) {
 			if(data == 1){
-				alert('配對成功');
+				swal({
+					title: "配對成功!",
+					text: "趕快去跟新對象聊天吧",
+					icon: "success",
+				  });
 				refreshMatchList();
 			}
 		},

@@ -5,9 +5,9 @@
         <form action="<?php echo URLROOT; ?>/users/login" method="POST" class="">
             <div class="container">
                 <div class="row justify-content-evenly align-items-center" id="cardrow">
-                    <div class="col-auto">
+                    <!-- <div class="col-auto">
                         <img src="<?php echo URLROOT; ?>/img/yeh.jpg" id="IMG_1">
-                    </div>
+                    </div> -->
                     <div class="col-md-8 col-lg-6 col-xl-5 col-xxl-4">
                         <div class="card" id="card">
                             <div class="card-body d-flex flex-column" id="cardbody">
