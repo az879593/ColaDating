@@ -1,4 +1,5 @@
 var chatUserNow;
+var latestHistory;
 $(".aprevent").on("click", function (e) {
 	e.preventDefault();
 });
@@ -109,6 +110,10 @@ function refreshChatHistory() {
 			success: function (data) {
 				// $(".chatlist").html(data);
 				// console.log(data);
+				if(latestHistory != data){
+					latestHistory = data;
+					refreshMatchList();
+				}
 				$(".chatspace").html(data);
 			},
 			error: function (data) {},
